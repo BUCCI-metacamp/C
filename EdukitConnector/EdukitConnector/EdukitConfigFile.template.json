@@ -1,0 +1,13 @@
+{
+  "EdukitId": "UVC-EDU-01",
+  "EdukitIP": "",
+  "EdukitPort": "",
+  "MqttBrokerIP": "127.0.0.1",
+  "MqttBrokerPort": "1883",
+  "MqttCert": null,
+  "MqttPw": null,
+  "MqttCa": null,
+  "DelayTime": "5000",
+  //Release: Don't Show Console Logs, Debug: Show Console Logs
+  "DebugType": "Debug"
+}
