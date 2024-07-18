@@ -1,0 +1,601 @@
+[
+  // M00000 - 동작 상태
+  {
+    "Address": "0",
+    "Data": null,
+    "TagId": "1",
+    "IntData": 0,
+    "Name": "StartState",
+    "DataByteArray": null,
+    "MemoryType": "Bit",
+    "MemoryArea": "M",
+    "AddressString": null,
+    "AddressByteArray": null,
+    "LengthByteArray": null
+  },
+  // M00011 - 1호기 칩 재고 상태
+  {
+    "Address": "11",
+    "Data": null,
+    "TagId": "2",
+    "IntData": 0,
+    "Name": "No1ChipEmpty",
+    "DataByteArray": null,
+    "MemoryType": "Bit",
+    "MemoryArea": "M",
+    "AddressString": null,
+    "AddressByteArray": null,
+    "LengthByteArray": null
+  },
+  // M00092 - 1호기 밀기 상태
+  {
+    "Address": "92",
+    "Data": null,
+    "TagId": "3",
+    "IntData": 0,
+    "Name": "No1Push",
+    "DataByteArray": null,
+    "MemoryType": "Bit",
+    "MemoryArea": "M",
+    "AddressString": null,
+    "AddressByteArray": null,
+    "LengthByteArray": null
+  },
+  // M00104 - 2호기 동작 상태
+  {
+    "Address": "104",
+    "Data": null,
+    "TagId": "4",
+    "IntData": 0,
+    "Name": "No2Standby",
+    "DataByteArray": null,
+    "MemoryType": "Bit",
+    "MemoryArea": "M",
+    "AddressString": null,
+    "AddressByteArray": null,
+    "LengthByteArray": null
+  },
+  // P0000E - 3호기 칩 도착
+  {
+    "Address": "0E",
+    "Data": null,
+    "TagId": "5",
+    "IntData": 0,
+    "Name": "No3ChipArrival",
+    "DataByteArray": null,
+    "MemoryType": "Bit",
+    "MemoryArea": "P",
+    "AddressString": null,
+    "AddressByteArray": null,
+    "LengthByteArray": null
+  },
+  // M00105 - 컬러 센싱 기억
+  {
+    "Address": "105",
+    "Data": null,
+    "TagId": "6",
+    "IntData": 0,
+    "Name": "No2SensingMemory",
+    "DataByteArray": null,
+    "MemoryType": "Bit",
+    "MemoryArea": "M",
+    "AddressString": null,
+    "AddressByteArray": null,
+    "LengthByteArray": null
+  },
+  {
+    //C00005 임시 비전 값 카운터
+    "Address": "5",
+    "Data": null,
+    "TagId": "7",
+    "IntData": 0,
+    "Name": "VisionSensor",
+    "DataByteArray": null,
+    "MemoryType": "Word",
+    "MemoryArea": "C",
+    "AddressString": null,
+    "AddressByteArray": null,
+    "LengthByteArray": null
+  },
+  // M0000F - 리셋 상태
+  {
+    "Address": "0F",
+    "Data": null,
+    "TagId": "8",
+    "IntData": 0,
+    "Name": "ResetState",
+    "DataByteArray": null,
+    "MemoryType": "Bit",
+    "MemoryArea": "M",
+    "AddressString": null,
+    "AddressByteArray": null,
+    "LengthByteArray": null
+  },
+  // M0008F - 1호기 전원 상태
+  {
+    "Address": "8F",
+    "Data": null,
+    "TagId": "9",
+    "IntData": 0,
+    "Name": "No1PowerState",
+    "DataByteArray": null,
+    "MemoryType": "Bit",
+    "MemoryArea": "M",
+    "AddressString": null,
+    "AddressByteArray": null,
+    "LengthByteArray": null
+  },
+  // M0009F - 2호기 전원 상태
+  {
+    "Address": "9F",
+    "Data": null,
+    "TagId": "10",
+    "IntData": 0,
+    "Name": "No2PowerState",
+    "DataByteArray": null,
+    "MemoryType": "Bit",
+    "MemoryArea": "M",
+    "AddressString": null,
+    "AddressByteArray": null,
+    "LengthByteArray": null
+  },
+  // M0010E - 3호기 전원 상태
+  {
+    "Address": "10E",
+    "Data": null,
+    "TagId": "11",
+    "IntData": 0,
+    "Name": "No3PowerState",
+    "DataByteArray": null,
+    "MemoryType": "Bit",
+    "MemoryArea": "M",
+    "AddressString": null,
+    "AddressByteArray": null,
+    "LengthByteArray": null
+  },
+  // M0006F - 센서1(컬러) 전원 상태
+  {
+    "Address": "6F",
+    "Data": null,
+    "TagId": "12",
+    "IntData": 0,
+    "Name": "Sen1PowerState",
+    "DataByteArray": null,
+    "MemoryType": "Bit",
+    "MemoryArea": "M",
+    "AddressString": null,
+    "AddressByteArray": null,
+    "LengthByteArray": null
+  },
+  // M0007F - 센서2(비전) 전원 상태
+  {
+    "Address": "7F",
+    "Data": null,
+    "TagId": "13",
+    "IntData": 0,
+    "Name": "Sen2PowerState",
+    "DataByteArray": null,
+    "MemoryType": "Bit",
+    "MemoryArea": "M",
+    "AddressString": null,
+    "AddressByteArray": null,
+    "LengthByteArray": null
+  },
+  // D01101 - 1호기 투입 지연 시간
+  {
+    "Address": "1101",
+    "Data": null,
+    "TagId": "14",
+    "IntData": 0,
+    "Name": "No1DelayTime",
+    "DataByteArray": null,
+    "MemoryType": "Word",
+    "MemoryArea": "D",
+    "AddressString": null,
+    "AddressByteArray": null,
+    "LengthByteArray": null
+  },
+  // C00001 - 1호기 투입량
+  {
+    "Address": "1",
+    "Data": null,
+    "TagId": "15",
+    "IntData": 0,
+    "Name": "No1Count",
+    "DataByteArray": null,
+    "MemoryType": "Word",
+    "MemoryArea": "C",
+    "AddressString": null,
+    "AddressByteArray": null,
+    "LengthByteArray": null
+  },
+  // C00002 - 2호기 조립 횟수
+  {
+    "Address": "2",
+    "Data": null,
+    "TagId": "16",
+    "IntData": 0,
+    "Name": "No2Count",
+    "DataByteArray": null,
+    "MemoryType": "Word",
+    "MemoryArea": "C",
+    "AddressString": null,
+    "AddressByteArray": null,
+    "LengthByteArray": null
+  },
+  // C00007 - 3호기 양품 수량
+  {
+    "Address": "7",
+    "Data": null,
+    "TagId": "17",
+    "IntData": 0,
+    "Name": "No3Count",
+    "DataByteArray": null,
+    "MemoryType": "Word",
+    "MemoryArea": "C",
+    "AddressString": null,
+    "AddressByteArray": null,
+    "LengthByteArray": null
+  },
+  // P0002C - 녹색 램프 상태
+  {
+    "Address": "2C",
+    "Data": null,
+    "TagId": "18",
+    "IntData": 0,
+    "Name": "GreenLampState",
+    "DataByteArray": null,
+    "MemoryType": "Bit",
+    "MemoryArea": "P",
+    "AddressString": null,
+    "AddressByteArray": null,
+    "LengthByteArray": null
+  },
+  // P0002D - 황색 램프 상태
+  {
+    "Address": "2D",
+    "Data": null,
+    "TagId": "19",
+    "IntData": 0,
+    "Name": "YellowLampState",
+    "DataByteArray": null,
+    "MemoryType": "Bit",
+    "MemoryArea": "P",
+    "AddressString": null,
+    "AddressByteArray": null,
+    "LengthByteArray": null
+  },
+  // P0002E - 적색 램프 상태
+  {
+    "Address": "2E",
+    "Data": null,
+    "TagId": "20",
+    "IntData": 0,
+    "Name": "RedLampState",
+    "DataByteArray": null,
+    "MemoryType": "Bit",
+    "MemoryArea": "P",
+    "AddressString": null,
+    "AddressByteArray": null,
+    "LengthByteArray": null
+  },
+  // K00424 - 3호기 1축(y) 현재 위치
+  {
+    "Address": "424",
+    "Data": null,
+    "TagId": "21",
+    "IntData": 0,
+    "Name": "No3Motor1Position",
+    "DataByteArray": null,
+    "MemoryType": "Word",
+    "MemoryArea": "K",
+    "AddressString": null,
+    "AddressByteArray": null,
+    "LengthByteArray": null
+  },
+  // K00444 - 3호기 2축(x) 현재 위치
+  {
+    "Address": "444",
+    "Data": null,
+    "TagId": "22",
+    "IntData": 0,
+    "Name": "No3Motor2Position",
+    "DataByteArray": null,
+    "MemoryType": "Word",
+    "MemoryArea": "K",
+    "AddressString": null,
+    "AddressByteArray": null,
+    "LengthByteArray": null
+  },
+  // P00009 - 1호기 칩 재고 상태
+  {
+    "Address": "9",
+    "Data": null,
+    "TagId": "23",
+    "IntData": 0,
+    "Name": "No1ChipFull",
+    "DataByteArray": null,
+    "MemoryType": "Bit",
+    "MemoryArea": "P",
+    "AddressString": null,
+    "AddressByteArray": null,
+    "LengthByteArray": null
+  },
+  // P0000A - 2호기 칩 도착
+  {
+    "Address": "A",
+    "Data": null,
+    "TagId": "24",
+    "IntData": 0,
+    "Name": "No2Chip",
+    "DataByteArray": null,
+    "MemoryType": "Bit",
+    "MemoryArea": "P",
+    "AddressString": null,
+    "AddressByteArray": null,
+    "LengthByteArray": null
+  },
+  // P0000B - 2호기 주사위 재고 상태
+  {
+    "Address": "B",
+    "Data": null,
+    "TagId": "25",
+    "IntData": 0,
+    "Name": "No2CubeFull",
+    "DataByteArray": null,
+    "MemoryType": "Bit",
+    "MemoryArea": "P",
+    "AddressString": null,
+    "AddressByteArray": null,
+    "LengthByteArray": null
+  },
+  // P0000C - 2호기 배출구 상태
+  {
+    "Address": "C",
+    "Data": null,
+    "TagId": "26",
+    "IntData": 0,
+    "Name": "No2InPoint",
+    "DataByteArray": null,
+    "MemoryType": "Bit",
+    "MemoryArea": "P",
+    "AddressString": null,
+    "AddressByteArray": null,
+    "LengthByteArray": null
+  },
+  // P0000D - 2호기 배출구 상태
+  {
+    "Address": "D",
+    "Data": null,
+    "TagId": "27",
+    "IntData": 0,
+    "Name": "No2OutPoint",
+    "DataByteArray": null,
+    "MemoryType": "Bit",
+    "MemoryArea": "P",
+    "AddressString": null,
+    "AddressByteArray": null,
+    "LengthByteArray": null
+  },
+  // P0002A - 솔레노이드 작동 상태
+  {
+    "Address": "2A",
+    "Data": null,
+    "TagId": "28",
+    "IntData": 0,
+    "Name": "No2Sol",
+    "DataByteArray": null,
+    "MemoryType": "Bit",
+    "MemoryArea": "P",
+    "AddressString": null,
+    "AddressByteArray": null,
+    "LengthByteArray": null
+  },
+  // M00106 - 솔레노이드 작동 상태
+  {
+    "Address": "106",
+    "Data": null,
+    "TagId": "29",
+    "IntData": 0,
+    "Name": "No2SolAction",
+    "DataByteArray": null,
+    "MemoryType": "Bit",
+    "MemoryArea": "M",
+    "AddressString": null,
+    "AddressByteArray": null,
+    "LengthByteArray": null
+  },
+  // M00107 - 배출구 원점 복귀 상태
+  {
+    "Address": "107",
+    "Data": null,
+    "TagId": "30",
+    "IntData": 0,
+    "Name": "No2BackToSquare",
+    "DataByteArray": null,
+    "MemoryType": "Bit",
+    "MemoryArea": "M",
+    "AddressString": null,
+    "AddressByteArray": null,
+    "LengthByteArray": null
+  },
+  // M00018 - 2호기 공정 조건
+  {
+    "Address": "18",
+    "Data": null,
+    "TagId": "31",
+    "IntData": 0,
+    "Name": "No2OperationMode",
+    "DataByteArray": null,
+    "MemoryType": "Bit",
+    "MemoryArea": "M",
+    "AddressString": null,
+    "AddressByteArray": null,
+    "LengthByteArray": null
+  },
+  {
+    "Address": "262",
+    "Data": null,
+    "TagId": "32",
+    "IntData": 0,
+    "Name": "TotalDistance",
+    "DataByteArray": null,
+    "MemoryType": "Word",
+    "MemoryArea": "K",
+    "AddressString": null,
+    "AddressByteArray": null,
+    "LengthByteArray": null
+  },
+  {
+    "Address": "264",
+    "Data": null,
+    "TagId": "43",
+    "IntData": 0,
+    "Name": "RevPerSecond",
+    "DataByteArray": null,
+    "MemoryType": "Word",
+    "MemoryArea": "K",
+    "AddressString": null,
+    "AddressByteArray": null,
+    "LengthByteArray": null
+  },
+  {
+    //M0001C No3 비전 지령 기억
+    "Address": "1C",
+    "Data": null,
+    "TagId": "33",
+    "IntData": 0,
+    "Name": "VisionCmdMemory",
+    "DataByteArray": null,
+    "MemoryType": "Bit",
+    "MemoryArea": "M",
+    "AddressString": null,
+    "AddressByteArray": null,
+    "LengthByteArray": null
+  },
+  {
+    "Address": "268",
+    "Data": null,
+    "TagId": "34",
+    "IntData": 0,
+    "Name": "Velocity",
+    "DataByteArray": null,
+    "MemoryType": "Word",
+    "MemoryArea": "K",
+    "AddressString": null,
+    "AddressByteArray": null,
+    "LengthByteArray": null
+  },
+  // P0000F - 비상정지 상태
+  {
+    "Address": "F",
+    "Data": null,
+    "TagId": "35",
+    "IntData": 0,
+    "Name": "EmergencyState",
+    "DataByteArray": null,
+    "MemoryType": "Bit",
+    "MemoryArea": "P",
+    "AddressString": null,
+    "AddressByteArray": null,
+    "LengthByteArray": null
+  },
+  // D10000 - 자재 투입 리미트 설정값
+  {
+    "Address": "10000",
+    "Data": null,
+    "TagId": "36",
+    "IntData": 0,
+    "Name": "InputLimit",
+    "DataByteArray": null,
+    "MemoryType": "Word",
+    "MemoryArea": "D",
+    "AddressString": null,
+    "AddressByteArray": null,
+    "LengthByteArray": null
+  },
+  // D01100 - 판독한 주사위값
+  {
+    "Address": "1100",
+    "Data": null,
+    "TagId": "37",
+    "IntData": 0,
+    "Name": "DiceValue",
+    "DataByteArray": null,
+    "MemoryType": "Word",
+    "MemoryArea": "D",
+    "AddressString": null,
+    "AddressByteArray": null,
+    "LengthByteArray": null
+  },
+  // D00150 - 주사위 비교 숫자
+  {
+    "Address": "150",
+    "Data": null,
+    "TagId": "38",
+    "IntData": 0,
+    "Name": "DiceComparisonValue",
+    "DataByteArray": null,
+    "MemoryType": "Word",
+    "MemoryArea": "D",
+    "AddressString": null,
+    "AddressByteArray": null,
+    "LengthByteArray": null
+  },
+  // P00004 - 컬러 센서 센싱
+  {
+    "Address": "4",
+    "Data": null,
+    "TagId": "39",
+    "IntData": 0,
+    "Name": "ColorSensorSensing",
+    "DataByteArray": null,
+    "MemoryType": "Bit",
+    "MemoryArea": "P",
+    "AddressString": null,
+    "AddressByteArray": null,
+    "LengthByteArray": null
+  },
+  // P0002B - 그리퍼 상태
+  {
+    "Address": "2B",
+    "Data": null,
+    "TagId": "40",
+    "IntData": 0,
+    "Name": "No3Gripper",
+    "DataByteArray": null,
+    "MemoryType": "Bit",
+    "MemoryArea": "P",
+    "AddressString": null,
+    "AddressByteArray": null,
+    "LengthByteArray": null
+  },
+  // K04200 3호기 1축(y) 운전 상태
+  {
+    "Address": "4200",
+    "Data": null,
+    "TagId": "41",
+    "IntData": 0,
+    "Name": "No3Motor1Action",
+    "DataByteArray": null,
+    "MemoryType": "Bit",
+    "MemoryArea": "K",
+    "AddressString": null,
+    "AddressByteArray": null,
+    "LengthByteArray": null
+  },
+  // K04400 3호기 2축(x) 운전 상태
+  {
+    "Address": "4400",
+    "Data": null,
+    "TagId": "42",
+    "IntData": 0,
+    "Name": "No3Motor2Action",
+    "DataByteArray": null,
+    "MemoryType": "Bit",
+    "MemoryArea": "K",
+    "AddressString": null,
+    "AddressByteArray": null,
+    "LengthByteArray": null
+  }
+]
