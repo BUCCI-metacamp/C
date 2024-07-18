@@ -11,6 +11,7 @@ bld/
 [Ll]og/
 
 # User-specific files
+.vs/
 .vscode/
 .vscode/*
 
@@ -42,3 +43,6 @@ bld/
 
 # Package directories
 **/packages
+
+# Edukit config file
+EdukitConfigFile.json
