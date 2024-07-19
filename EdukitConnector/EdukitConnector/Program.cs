@@ -1,5 +1,6 @@
 ﻿
 using Newtonsoft.Json;
+using System.IO.Ports;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using uPLibrary.Networking.M2Mqtt;
@@ -21,6 +22,7 @@ namespace EdukitConnector
         public class Service
         {
             private static FEnetClient fenetClient;
+            private static SerialPort serialPort1;
             public static MqttClient mqttClient;
             static EdukitConfig EdukitConfigResult = null;
             static List<XGTAddressData> devicesList = null;
@@ -100,6 +102,22 @@ namespace EdukitConnector
 
                     XGTClass xGTClass = new XGTClass(ip, port);
 
+                    serialPort1 = new SerialPort
+                    {
+                        PortName = "COM6", // 사용 중인 포트 이름 (예: COM3)
+                        BaudRate = 9600, // 보드레이트 설정
+                        Parity = Parity.None, // 패리티 비트 설정
+                        DataBits = 8, // 데이터 비트 설정
+                        StopBits = StopBits.One, // 정지 비트 설정
+                        Handshake = Handshake.None, // 핸드셰이크 설정
+                        ReadTimeout = 500, // 읽기 타임아웃 설정 (밀리초)
+                        WriteTimeout = 500 // 쓰기 타임아웃 설정 (밀리초)
+                    };
+
+                    serialPort1.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
+
+                    serialPort1.Open();
+
                     ConnectionStart(DelayTime, xGTClass, ip, port);
                 }
                 catch (Exception ex)
@@ -144,6 +162,9 @@ namespace EdukitConnector
                 {
                     try
                     {
+                        //string rdata = serialPort1.ReadLine();
+                        //Console.WriteLine(rdata);
+
                         List<EdukitNewdata> edukitData = new List<EdukitNewdata>();
 
                         Dictionary<XGTAddressData, ReceivedReadData> DataTagList = new Dictionary<XGTAddressData, ReceivedReadData>();
@@ -182,7 +203,6 @@ namespace EdukitConnector
                                 string memoryDicKey = $"%MX{readData.memoryBunji.Substring(1)}";
                                 if (SWITCH_MEMORY.ContainsKey(memoryDicKey))
                                 {
-                                    Console.WriteLine($"bit: {readData.wordValue}");
                                     SWITCH_MEMORY[memoryDicKey] = readData.wordValue;
                                 }
                                 readDataList.Add(readData);
@@ -231,7 +251,7 @@ namespace EdukitConnector
                         if (EdukitConfigResult.DebugType == "Debug")
                         {
                             //Console.Clear();
-                            //List<EdukitNewdata> SortedList = edukitData.OrderBy(x => Int64.Parse(x.tagId)).ToList();
+                            List<EdukitNewdata> SortedList = edukitData.OrderBy(x => Int64.Parse(x.tagId)).ToList();
 
                             foreach (var data in edukitData)
                             {
@@ -302,6 +322,27 @@ namespace EdukitConnector
                 {
                     // JSON 파싱 오류 처리
                     Console.WriteLine($"Failed to parse JSON message: {ex.Message}");
+                }
+            }
+
+            // 아두이노 데이터 수신 핸들러
+            static void DataReceivedHandler(object sender, SerialDataReceivedEventArgs e)
+            {
+                try
+                {
+                    // 수신된 데이터 읽기
+                    string inData = serialPort1.ReadLine();
+                    Console.WriteLine("Data Received: " + inData);
+                    string payload = inData.Trim() == "HIGH" ? "0" : "1";
+                    mqttClient.Publish("edge/arduino/status", Encoding.UTF8.GetBytes(payload));
+                }
+                catch (TimeoutException)
+                {
+                    Console.WriteLine("Read timeout.");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error: " + ex.Message);
                 }
             }
 
