@@ -102,21 +102,33 @@ namespace EdukitConnector
 
                     XGTClass xGTClass = new XGTClass(ip, port);
 
-                    serialPort1 = new SerialPort
+                    string portName = "COM6"; // 확인할 포트 이름
+
+                    // 시스템에서 사용 가능한 포트 목록을 가져옴
+                    string[] portNames = SerialPort.GetPortNames();
+
+                    if (portNames.Contains(portName))
                     {
-                        PortName = "COM6", // 사용 중인 포트 이름 (예: COM3)
-                        BaudRate = 9600, // 보드레이트 설정
-                        Parity = Parity.None, // 패리티 비트 설정
-                        DataBits = 8, // 데이터 비트 설정
-                        StopBits = StopBits.One, // 정지 비트 설정
-                        Handshake = Handshake.None, // 핸드셰이크 설정
-                        ReadTimeout = 500, // 읽기 타임아웃 설정 (밀리초)
-                        WriteTimeout = 500 // 쓰기 타임아웃 설정 (밀리초)
-                    };
+                        serialPort1 = new SerialPort
+                        {
+                            PortName = portName, // 사용 중인 포트 이름 (예: COM3)
+                            BaudRate = 9600, // 보드레이트 설정
+                            Parity = Parity.None, // 패리티 비트 설정
+                            DataBits = 8, // 데이터 비트 설정
+                            StopBits = StopBits.One, // 정지 비트 설정
+                            Handshake = Handshake.None, // 핸드셰이크 설정
+                            ReadTimeout = 500, // 읽기 타임아웃 설정 (밀리초)
+                            WriteTimeout = 500 // 쓰기 타임아웃 설정 (밀리초)
+                        };
 
-                    serialPort1.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
+                        serialPort1.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
 
-                    serialPort1.Open();
+                        serialPort1.Open();
+                    }
+                    else
+                    {
+                        Console.WriteLine($"{portName} 포트가 시스템에 존재하지 않습니다.");
+                    }
 
                     ConnectionStart(DelayTime, xGTClass, ip, port);
                 }
@@ -162,9 +174,6 @@ namespace EdukitConnector
                 {
                     try
                     {
-                        //string rdata = serialPort1.ReadLine();
-                        //Console.WriteLine(rdata);
-
                         List<EdukitNewdata> edukitData = new List<EdukitNewdata>();
 
                         Dictionary<XGTAddressData, ReceivedReadData> DataTagList = new Dictionary<XGTAddressData, ReceivedReadData>();
