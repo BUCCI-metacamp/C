@@ -34,6 +34,8 @@ namespace EdukitConnector
                 { "%MX159", "0" },
                 { "%MX174", "0" },
             };
+            private static int defectiveCount = 0;
+            private static int previousDefectiveData = 0;
 
             internal async void Start()
             {
@@ -243,8 +245,22 @@ namespace EdukitConnector
                             if (data.Value.dataType == "Bit") { newdata.value = data.Value.bitValue == "True" ? true : false; }
                             else if (data.Value.dataType == "Word") { newdata.value = data.Value.wordValue; }
 
+                            if (newdata.tagId == "15" && newdata.value == "0" && defectiveCount > 0)
+                            {
+                                defectiveCount = 0;
+                            } 
+
                             edukitData.Add(newdata);
                         }
+
+                        // defective count
+                        EdukitNewdata defectiveData = new EdukitNewdata
+                        {
+                            name = "defectiveCount",
+                            tagId = "43",
+                            value = defectiveCount.ToString()
+                        };
+                        edukitData.Add(defectiveData);
 
                         //timestamp
                         EdukitNewdata timeData = new EdukitNewdata
@@ -271,6 +287,7 @@ namespace EdukitConnector
                     catch (Exception ex)
                     {
                         Console.WriteLine("ResponseTimeout, Reconnecting...", ex.Message);
+                        mqttClient.Publish("edge/edukit/power", Encoding.UTF8.GetBytes("0"));
                         Thread.Sleep(10000);
                     }
                     Thread.Sleep(DelayTime);
@@ -283,6 +300,7 @@ namespace EdukitConnector
                 {
                     //MQTT Publish
                     mqttClient.Publish(topic, Encoding.Default.GetBytes(JsonConvert.SerializeObject(EduKitData)));
+                    mqttClient.Publish("edge/edukit/power", Encoding.UTF8.GetBytes("1"));
                 }
                 catch (Exception ex)
                 {
@@ -341,9 +359,12 @@ namespace EdukitConnector
                 {
                     // 수신된 데이터 읽기
                     string inData = serialPort1.ReadLine();
-                    Console.WriteLine("Data Received: " + inData);
-                    string payload = inData.Trim() == "HIGH" ? "0" : "1";
-                    mqttClient.Publish("edge/arduino/status", Encoding.UTF8.GetBytes(payload));
+                    int payload = inData.Trim() == "HIGH" ? 0 : 1;
+                    if (previousDefectiveData != payload && payload == 1)
+                    {
+                        defectiveCount++;
+                    }
+                    previousDefectiveData = payload;
                 }
                 catch (TimeoutException)
                 {
