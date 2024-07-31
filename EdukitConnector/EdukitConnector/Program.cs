@@ -1,5 +1,6 @@
 ﻿
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.IO.Ports;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -37,6 +38,9 @@ namespace EdukitConnector
             private static int defectiveCount = 0;
             private static int previousDefectiveData = 0;
 
+            private static Task reconnectTask;
+            private static bool reconnecting;
+
             internal async void Start()
             {
                 SetConfig();
@@ -64,33 +68,7 @@ namespace EdukitConnector
                     var ip = EdukitConfigResult.EdukitIP;
                     var port = Int32.Parse(EdukitConfigResult.EdukitPort);
                     int DelayTime = Int32.Parse(EdukitConfigResult.DelayTime);
-                    int mqttport = Int32.Parse(EdukitConfigResult.MqttBrokerPort);
-
-                    mqttClient = null;
-                    if (EdukitConfigResult.MqttCert == null)
-                    {
-                        mqttClient = new MqttClient(EdukitConfigResult.MqttBrokerIP, mqttport, false, null, null, MqttSslProtocols.TLSv1_2);
-                    }
-                    else
-                    {
-                        X509Certificate clientCert = new X509Certificate2(EdukitConfigResult.MqttCert, EdukitConfigResult.MqttPw);
-                        X509Certificate caCert = new X509Certificate(EdukitConfigResult.MqttCa);
-                        mqttClient = new MqttClient(EdukitConfigResult.MqttBrokerIP, mqttport, true, caCert, clientCert, MqttSslProtocols.TLSv1_2);
-                    }
-                    mqttClient.ProtocolVersion = MqttProtocolVersion.Version_3_1_1;
-
-                    byte code = mqttClient.Connect(Guid.NewGuid().ToString());
-
-                    mqttClient.MqttMsgPublishReceived += (sender, e) => client_MqttMsgPublishReceived(sender, e, fenetClient);
-
-                    mqttClient.ConnectionClosed += (sender, e) => Console.WriteLine("연결이 닫혔습니다.");
-                    mqttClient.MqttMsgSubscribed += (sender, e) => Console.WriteLine($"구독 성공: {e.MessageId}");
-                    mqttClient.MqttMsgUnsubscribed += (sender, e) => Console.WriteLine($"구독 해제: {e.MessageId}");
-
-                    ushort messageIds = mqttClient.Subscribe(new string[] { "edge/edukit/control" }, new byte[] { MqttMsgBase.QOS_LEVEL_AT_LEAST_ONCE });
-                    Console.WriteLine($"구독 메시지 ID: {messageIds}");
-
-                    Console.WriteLine($"Connection result: {code}");
+                    mqttConnect();
 
                     Console.WriteLine("-------------- Edukit Information --------------");
                     Console.WriteLine("Edukit Connection State : True");
@@ -257,7 +235,7 @@ namespace EdukitConnector
                         EdukitNewdata defectiveData = new EdukitNewdata
                         {
                             name = "defectiveCount",
-                            tagId = "43",
+                            tagId = "44",
                             value = defectiveCount.ToString()
                         };
                         edukitData.Add(defectiveData);
@@ -305,6 +283,59 @@ namespace EdukitConnector
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message + "\n" + ex.StackTrace);
+                }
+            }
+
+            private void mqttConnect()
+            {
+                int mqttport = Int32.Parse(EdukitConfigResult.MqttBrokerPort);
+
+                if (EdukitConfigResult.MqttCert == null)
+                {
+                    mqttClient = new MqttClient(EdukitConfigResult.MqttBrokerIP, mqttport, false, null, null, MqttSslProtocols.TLSv1_2);
+                }
+                else
+                {
+                    X509Certificate clientCert = new X509Certificate2(EdukitConfigResult.MqttCert, EdukitConfigResult.MqttPw);
+                    X509Certificate caCert = new X509Certificate(EdukitConfigResult.MqttCa);
+                    mqttClient = new MqttClient(EdukitConfigResult.MqttBrokerIP, mqttport, true, caCert, clientCert, MqttSslProtocols.TLSv1_2);
+                }
+                mqttClient.ProtocolVersion = MqttProtocolVersion.Version_3_1_1;
+
+                byte code = mqttClient.Connect(Guid.NewGuid().ToString());
+
+                mqttClient.MqttMsgPublishReceived += (sender, e) => client_MqttMsgPublishReceived(sender, e, fenetClient);
+
+                mqttClient.ConnectionClosed += (sender, e) => onConnectionClosed(sender, e);
+                mqttClient.MqttMsgSubscribed += (sender, e) => Console.WriteLine($"구독 성공: {e.MessageId}");
+                mqttClient.MqttMsgUnsubscribed += (sender, e) => Console.WriteLine($"구독 해제: {e.MessageId}");
+
+                ushort messageIds = mqttClient.Subscribe(new string[] { "edge/edukit/control" }, new byte[] { MqttMsgBase.QOS_LEVEL_AT_LEAST_ONCE });
+                Console.WriteLine($"구독 메시지 ID: {messageIds}");
+
+                Console.WriteLine($"Connection result: {code}");
+            }
+
+            private void onConnectionClosed(object sender, EventArgs e)
+            {
+                Console.WriteLine("Connection closed, Reconnecting...");
+                Task.Run(() => Reconnect());
+            }
+
+            private async Task Reconnect()
+            {
+                while (!mqttClient.IsConnected)
+                {
+                    try
+                    {
+                        mqttConnect();
+                        await Task.Delay(5000);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"error reconnecting: {ex.Message}");
+                        await Task.Delay(10000);
+                    }
                 }
             }
 
