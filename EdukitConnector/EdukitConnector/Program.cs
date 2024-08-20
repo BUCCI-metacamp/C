@@ -82,7 +82,7 @@ namespace EdukitConnector
 
                     XGTClass xGTClass = new XGTClass(ip, port);
 
-                    string portName = "COM6"; // 확인할 포트 이름
+                    string portName = EdukitConfigResult.PortName; // 확인할 포트 이름
 
                     // 시스템에서 사용 가능한 포트 목록을 가져옴
                     string[] portNames = SerialPort.GetPortNames();
@@ -245,7 +245,7 @@ namespace EdukitConnector
                         {
                             name = "DataTime",
                             tagId = "0",
-                            value = DateTime.Now.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fff'Z'")
+                            value = DateTime.Now.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fff'+09:00'")
                         };
                         edukitData.Add(timeData);
 
@@ -452,6 +452,7 @@ namespace EdukitConnector
             public string MqttCa { get; set; }
             public string WebSocketServerUrl { get; set; }
             public string DelayTime { get; set; }
+            public string PortName { get; set;}
             public string DebugType { get; set; }
         }
 

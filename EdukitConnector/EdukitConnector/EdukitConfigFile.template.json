@@ -8,6 +8,7 @@
   "MqttPw": null,
   "MqttCa": null,
   "DelayTime": "5000",
+  "PortName": "COM7",
   //Release: Don't Show Console Logs, Debug: Show Console Logs
   "DebugType": "Debug"
 }
